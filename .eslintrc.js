@@ -15,5 +15,6 @@ module.exports = {
         indent: ['error', 4],
         'class-methods-use-this': 'off',
         'import/first': 'off',
+        'no-param-reassign': 'off',
     },
 };
