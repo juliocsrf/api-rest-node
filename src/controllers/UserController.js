@@ -3,10 +3,15 @@ import User from '../models/User';
 class UserController {
     async store(req, res) {
         let newUser = null;
+        let { id, nome, email } = null;
         try {
             newUser = await User.create(
                 { ...req.body, password_unhash: req.body.password ?? null },
             );
+
+            id = newUser.id;
+            nome = newUser.nome;
+            email = newUser.email;
         } catch (e) {
             const response = { errors: null };
             if (e.name === 'SequelizeUniqueConstraintError') {
@@ -19,9 +24,7 @@ class UserController {
             return;
         }
 
-        res.json({
-            user: newUser,
-        });
+        res.json({ id, nome, email });
     }
 
     async index(req, res) {
@@ -45,15 +48,7 @@ class UserController {
 
     async update(req, res) {
         try {
-            const { id } = req.params;
-
-            if (!id) {
-                return res.status(400).json({
-                    errors: ['ID não enviado'],
-                });
-            }
-
-            const user = await User.findByPk(id);
+            const user = await User.findByPk(req.userId);
 
             if (!user) {
                 return res.status(400).json({
@@ -62,7 +57,8 @@ class UserController {
             }
 
             const newData = await user.update(req.body);
-            return res.json(newData);
+            const { id, nome, email } = newData;
+            return res.json({ id, nome, email });
         } catch (e) {
             const response = { errors: null };
             if (e.name === 'SequelizeUniqueConstraintError') {
@@ -77,15 +73,7 @@ class UserController {
 
     async destroy(req, res) {
         try {
-            const { id } = req.params;
-
-            if (!id) {
-                return res.status(400).json({
-                    errors: ['ID não enviado'],
-                });
-            }
-
-            const user = await User.findByPk(id);
+            const user = await User.findByPk(req.userId);
 
             if (!user) {
                 return res.status(400).json({
