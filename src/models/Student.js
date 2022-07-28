@@ -22,6 +22,7 @@ export default class Student extends Model {
                         msg: 'Sobrenome deve ter entre 3 e 255 caracteres',
                     },
                 },
+                field: 'last_name',
             },
             email: {
                 type: Sequelize.STRING,
@@ -60,6 +61,14 @@ export default class Student extends Model {
                 },
             },
         }, { sequelize });
+
         return this;
+    }
+
+    static associate(models) {
+        this.hasMany(models.Photo, {
+            as: 'photos',
+            foreignKey: 'student_id',
+        });
     }
 }

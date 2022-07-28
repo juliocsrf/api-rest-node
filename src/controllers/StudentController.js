@@ -2,7 +2,14 @@ import Student from '../models/Student';
 
 class StudentController {
     async index(req, res) {
-        const students = await Student.findAll();
+        const students = await Student.findAll({
+            include: {
+                association: 'photos',
+                attributes: [
+                    'fileName', 'fileOriginalName',
+                ],
+            },
+        });
         res.json({ students });
     }
 
