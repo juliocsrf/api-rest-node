@@ -6,7 +6,7 @@ class StudentController {
             include: {
                 association: 'photos',
                 attributes: [
-                    'fileName', 'fileOriginalName',
+                    'fileName', 'fileOriginalName', 'fileUrl',
                 ],
             },
         });

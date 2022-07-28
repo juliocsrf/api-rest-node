@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import urlHelper from '../helpers/urlHelper';
 
 export default class Photo extends Model {
     static init(sequelize) {
@@ -26,6 +27,12 @@ export default class Photo extends Model {
             studentId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
+            },
+            fileUrl: {
+                type: Sequelize.VIRTUAL,
+                get() {
+                    return urlHelper.makeUrl(`/images/${this.getDataValue('fileName')}`);
+                },
             },
         }, { sequelize });
 
