@@ -3,7 +3,9 @@ import User from '../models/User';
 class UserController {
     async store(req, res) {
         let newUser = null;
-        let { id, nome, email } = null;
+        let id;
+        let nome;
+        let email = null;
         try {
             newUser = await User.create(
                 { ...req.body, password_unhash: req.body.password ?? null },
