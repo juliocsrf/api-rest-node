@@ -4,7 +4,7 @@ class UserController {
     async store(req, res) {
         let newUser = null;
         let id;
-        let nome;
+        let name;
         let email = null;
         try {
             newUser = await User.create(
@@ -12,7 +12,7 @@ class UserController {
             );
 
             id = newUser.id;
-            nome = newUser.nome;
+            name = newUser.name;
             email = newUser.email;
         } catch (e) {
             const response = { errors: null };
@@ -26,7 +26,7 @@ class UserController {
             return;
         }
 
-        res.json({ id, nome, email });
+        res.json({ id, name, email });
     }
 
     async index(req, res) {
