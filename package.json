@@ -31,6 +31,6 @@
     "sequelize": "^6.21.2"
   },
   "engines": {
-    "node": ">=16"
+    "node": "16"
   }
 }
