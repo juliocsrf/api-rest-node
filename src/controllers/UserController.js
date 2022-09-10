@@ -61,7 +61,7 @@ class UserController {
 
             const { name, email, password } = req.body;
 
-            await user.update({ name, email, password });
+            await user.update({ name, email, password_unhash: password ?? null });
             return res.json({ name, email });
         } catch (e) {
             const response = { errors: null };
