@@ -50,7 +50,8 @@ class UserController {
 
     async update(req, res) {
         try {
-            const user = await User.findByPk(req.userId);
+            const { userId } = req.params;
+            const user = await User.findByPk(userId);
 
             if (!user) {
                 return res.status(400).json({
@@ -58,9 +59,10 @@ class UserController {
                 });
             }
 
-            const newData = await user.update(req.body);
-            const { id, nome, email } = newData;
-            return res.json({ id, nome, email });
+            const { name, email, password } = req.params;
+
+            await user.update({ name, email, password });
+            return res.json({ name, email });
         } catch (e) {
             const response = { errors: null };
             if (e.name === 'SequelizeUniqueConstraintError') {
