@@ -41,7 +41,7 @@ export default class Photo extends Model {
 
     static associate(models) {
         this.belongsTo(models.Student, {
-            foreignKey: 'studentId',
+            foreignKey: 'student_id',
             targetKey: 'id',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE',
