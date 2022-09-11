@@ -35,7 +35,14 @@ class StudentController {
                 });
             }
 
-            const student = await Student.findByPk(id);
+            const student = await Student.findByPk(id, {
+                include: {
+                    association: 'photos',
+                    attributes: [
+                        'fileName', 'fileOriginalName', 'fileUrl',
+                    ],
+                },
+            });
 
             if (!student) {
                 return res.status(400).json({
