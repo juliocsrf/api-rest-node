@@ -25,6 +25,10 @@ class App {
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(express.json());
         this.app.use(express.static(resolve(__dirname, 'uploads')));
+        this.app.use((req, res, next) => {
+            res.header('Cross-Origin-Resource-Policy', '*');
+            next();
+        });
     }
 
     routes() {
