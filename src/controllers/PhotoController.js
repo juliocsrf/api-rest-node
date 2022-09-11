@@ -10,16 +10,16 @@ class PhotoController {
         return upload(req, res, async (err) => {
             const student = await Student.findByPk(req.body.studentId);
 
+            if (err) {
+                return res.status(400).json({
+                    errors: [err.code],
+                });
+            }
+
             console.log(req.body);
             if (!student) {
                 return res.status(400).json({
                     errors: ['Estudante inválido'],
-                });
-            }
-
-            if (err) {
-                return res.status(400).json({
-                    errors: [err.code],
                 });
             }
 
